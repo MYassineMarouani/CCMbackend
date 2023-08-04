@@ -133,6 +133,16 @@ router.get('/check-date-availability/:date', async (req, res) => {
     }
   });
   
-
+  router.get('/getbyid/:id', (req, res) => {
+    let id = req.params.id;
+    RDV.findOne({ _id: id }).then(
+        (data) => {
+            res.send(data);
+        },
+        (err) => {
+            res.send(err);
+        }
+    );
+})
   
 module.exports = router;
