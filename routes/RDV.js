@@ -59,6 +59,17 @@ router.post('/add', (req, res) => {
     res.status(500).json({ error: 'Error saving event' });
   }
 });
+router.delete('/delete/:id', async (req, res) => {
+  try {
+      const deletedRDV = await RDV.findByIdAndDelete(req.params.id);
+      if (!deletedRDV) {
+          return res.status(404).json({ message: 'RDV not found' });
+      }
+      res.json({ message: 'RDV deleted successfully', agent: deletedRDV });
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
+});
 
 router.get('/getall', async (req, res) => {
   try {
@@ -172,6 +183,18 @@ router.get('/getwithstatus/:status', async (req, res) => {
     }
 
     res.json(rdvs);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+router.get('/samedate/:date', async (req, res) => {
+  const dateToCheck = new Date(req.params.date);
+
+  try {
+    // Find all RDVs with the same date
+    const count = await RDV.countDocuments({ date: dateToCheck });
+
+    res.json({ date: dateToCheck, count: count });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

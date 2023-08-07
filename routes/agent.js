@@ -17,16 +17,16 @@ router.post('/add', (req, res) => {
 });
 
 
-router.delete('/delete/:id', (req, res) => {
-    try {
-        const deletedAgent = Agent.findByIdAndDelete(req.params.id);
-        if (!deletedAgent) {
-            return res.status(404).json({ message: 'Agent not found' });
-        }
-        res.json({ message: 'Agent deleted successfully', agent: deletedAgent });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+router.delete('/delete/:id', async (req, res) => {
+  try {
+      const deletedAgent = await Agent.findByIdAndDelete(req.params.id);
+      if (!deletedAgent) {
+          return res.status(404).json({ message: 'Agent not found' });
+      }
+      res.json({ message: 'Agent deleted successfully', agent: deletedAgent });
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
 });
 
 // get By ID = 100% working
