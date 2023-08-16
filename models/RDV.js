@@ -5,6 +5,7 @@ const eventSchema = new mongoose.Schema({
     prenom : String,
     date: Date,
     Type : String ,
+    superficie : String,
     Adresse : String ,
     Ville : String ,
     CP : String ,

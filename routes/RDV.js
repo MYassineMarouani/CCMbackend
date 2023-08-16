@@ -10,6 +10,7 @@ router.post('/add', (req, res) => {
     prenom,
     date,
     Type,
+    superficie,
     Adresse,
     Ville,
     CP,
@@ -32,6 +33,7 @@ router.post('/add', (req, res) => {
     prenom,
     date,
     Type,
+    superficie ,
     Adresse,
     Ville,
     CP,
@@ -199,6 +201,40 @@ router.get('/samedate/:date', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+// Get an RDV by status and type
+router.get('/getbystatustype/:status/:type', async (req, res) => {
+  const status = req.params.status; // Get the status from the URL parameters
+  const type = req.params.type; // Get the type from the URL parameters
+
+  try {
+    const rdvs = await RDV.find({ Status: status, Type: type });
+
+    if (rdvs.length === 0) {
+      return res.status(404).json({ message: `No RDVs found with status: ${status} and type: ${type}` });
+    }
+
+    res.json(rdvs);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+router.get('/getbytype/:type', async (req, res) => {// Get the status from the URL parameters
+  const type = req.params.type; // Get the type from the URL parameters
+
+  try {
+    const rdvs = await RDV.find({ Type: type });
+
+    if (rdvs.length === 0) {
+      return res.status(404).json({ message: `No RDVs found with type: ${type}` });
+    }
+
+    res.json(rdvs);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 
 module.exports = router;
