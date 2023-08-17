@@ -84,7 +84,7 @@ router.put('/update/:id', async (req, res) => {
   
       // If the email and password are correct, generate a JWT token without expiration
       const token = jwt.sign(
-        { id: agent._id, email: agent.Email }, // Payload data to be encoded in the token
+        { id: agent._id, email: agent.Email , nom: agent.nom }, // Payload data to be encoded in the token
         'your_secret_key' // Replace 'your_secret_key' with a secure secret key for JWT
       );
   
