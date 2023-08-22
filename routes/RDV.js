@@ -139,6 +139,7 @@ function sendEmail(updatedRDV) {
       `- Avis d'imposition 2022\n\n` +
       `Merci de bien vouloir me confirmer ce rendez-vous par SMS. Je me tiens à votre disposition et vous souhaite une excellente journée.\n\n` +
       `Bien cordialement,\n` +
+      `Mr Cohen Isaac \n` +
       `MME SERRIN CAROLE\n` +
       `Projet BAR-TH- P5 Rénovation Globale\n` +
       `GIE / Groupe Innovation Energie\n` +
