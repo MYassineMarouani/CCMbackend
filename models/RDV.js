@@ -9,6 +9,8 @@ const eventSchema = new mongoose.Schema({
     Adresse : String ,
     Email : String ,
     dateEmail : String ,
+    dateEmailFin : String , 
+    Comble : String ,
     Ville : String ,
     CP : String ,
     NumFix : String , 

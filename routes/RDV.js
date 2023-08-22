@@ -13,6 +13,8 @@ router.post('/add', (req, res) => {
     Email,
     dateEmail,
     superficie,
+    dateEmailFin,
+    Comble,
     Adresse,
     Ville,
     CP,
@@ -37,6 +39,8 @@ router.post('/add', (req, res) => {
     Type,
     Email,
     dateEmail,
+    dateEmailFin,
+    Comble,
     superficie,
     Adresse,
     Ville,
@@ -116,20 +120,24 @@ function sendEmail(updatedRDV) {
       pass: 'qrkakgntphgbnjky',
     },
   });
-  const originalDate = new Date(updatedRDV.dateEmail);
-  const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: 'numeric' };
-  const formattedDate = originalDate.toLocaleString('fr-FR', options);
+  const dateDebutStr = updatedRDV.dateEmail;
+  const dateFinStr = updatedRDV.dateEmailFin;
+  const dateDebut = new Date(dateDebutStr);
+  const dateFin = new Date(dateFinStr);
+  const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric' };
+  const formattedDebut = dateDebut.toLocaleString('fr-FR', options);
+  const formattedFin = dateFin.toLocaleString('fr-FR', { hour: 'numeric', minute: 'numeric' });
   const mailOptions = {
     from: 'renovationglobale.energetique@gmail.com',
     to: updatedRDV.Email,
-    subject: 'Confirmation de rendez-vous',
+    subject: 'PRESENTATION GIE POUR AUDIT ENERGETIQUE',
     text: `Cher(e) ${updatedRDV.name} ${updatedRDV.prenom},\n\n` +
       `Suite à notre conversation téléphonique, je suis ravi de vous présenter la société Groupe Innovation Energie.\n\n` +
       `Entreprise spécialisée dans le domaine des énergies renouvelables et de l'isolation. Nous travaillons en partenariat avec des délégataires tels que Total Énergie, et notre mission est de sélectionner les maisons éligibles aux primes CEE (Certificats d'Économie d'Énergie) pour des travaux de rénovation énergétique conformes aux critères établis par ces partenaires et les autorités.\n\n` +
       `Afin de déterminer l'éligibilité de votre maison à cette prime ainsi que le montant auquel vous pourriez prétendre, nous avons besoin de réaliser un audit énergétique.\n\n` +
       `C'est pourquoi je vous propose un rendez-vous avec un technicien de la société SA CONSULTING. Le compte rendu et le relevé qui sera effectué chez vous détermineront le montant de la prime et la prise en charge de la rénovation énergétique de votre maison.\n\n` +
       `Je tiens à vous confirmer que ce rendez-vous est entièrement pris en charge par notre entreprise, et vous n'avez rien à régler.\n\n` +
-      `${formattedDate}\n\n` +
+      `${formattedDebut}h : ${formattedFin}\n\n` +
       `10 RUE D'ALGER\n` +
       `02100 ST QUENTIN\n\n` +
       `C'est la société AS CONSULTING qui vous contactera 24 heures avant le rendez-vous pour préparer les documents administratifs nécessaires à l'instruction du projet et pour confirmer ce rendez-vous.\n\n` +
@@ -145,12 +153,12 @@ function sendEmail(updatedRDV) {
       `Tel : 01.80.97.77.00\n` +
       `Mob : 07 67 73 77 40\n` +
       `Mail : arielle@gienergie.fr`,
-      attachments: [
-        {
-          filename: 'guide.pdf', 
-          path: path.resolve(__dirname, '../file/guide.pdf') 
-        }
-      ]
+    attachments: [
+      {
+        filename: 'guide.pdf',
+        path: path.resolve(__dirname, '../file/guide.pdf')
+      }
+    ]
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
