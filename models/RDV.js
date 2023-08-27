@@ -25,6 +25,7 @@ const eventSchema = new mongoose.Schema({
     CommentaireAg : String ,
     Status : String ,
     CommentaireAd : String ,
+    Age : String, 
     PriseLe : Date ,
     idAgent : String 
 

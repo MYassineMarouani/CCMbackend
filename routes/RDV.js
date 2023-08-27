@@ -27,6 +27,7 @@ router.post('/add', (req, res) => {
     NumeroFisc,
     ReferenceAvis,
     Precarite,
+    Age ,
     CommentaireAg,
     CommentaireAd,
     idAgent,
@@ -53,6 +54,7 @@ router.post('/add', (req, res) => {
     RevenuCli,
     NumeroFisc,
     ReferenceAvis,
+    Age,
     Precarite,
     CommentaireAg,
     Status: 'en cours', // Set the Status field to "en cours" by default
